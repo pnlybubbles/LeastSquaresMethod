@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>最小二乗法(1次関数) - About</title>
+  <link rel="stylesheet" type="text/css" href="/style/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/style/main.css">
+  <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="main">
+      <div class="header">
+        <div class="page-header">
+          <h1>最小二乗法(1次関数)自動評価</h1>
+        </div>
+        <nav class="navbar navbar-inverse" role="navigation">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/">LeastSquaresMethod</a>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a href="/">App</a></li>
+              <li><a href="/about">About</a></li>
+              <li class="active"><a href="#">Help</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="tips section">
+        <h2>サンプル</h2>
+        <label>csvデータの例</label>
+        <pre>
+1,4.5
+2,6.8
+3,8.2
+4,10.2
+5,12.7
+6,14.5
+7,16.8
+8,19.1
+9,20.3
+10,22.5</pre>
+        <label>実行結果</label>
+        <br>
+        <button type="button" class="btn btn-primary" onclick="document.location='/?type=plain&data=1,4.5:2,6.8:3,8.2:4,10.2:5,12.7:6,14.5:7,16.8:8,19.1:9,20.3:10,22.5'">実行結果にジャンプ</button>
+      </div>
+      <div class="tips section">
+        <h2>操作手順</h2>
+        <label>エクセルを開き最小二乗法に適用したいデータのみを取り出します。(A列がx軸、B列がy軸)</label>
+        <div class="img_wrap">
+          <img src="/image/img_1.png" class="img-thumbnail" \>
+        </div>
+        <label>csvデータ形式で保存します。</label>
+        <div class="img_wrap">
+          <img src="/image/img_2.png" class="img-thumbnail" \>
+        </div>
+        <label>保存したcsvファイルをドラッグ&ドロップします。</label>
+        <div class="img_wrap">
+          <img src="/image/img_3.png" class="img-thumbnail" \>
+        </div>
+      </div>
+      <div class="footer">
+        <p class="text-center">©2014 学籍番号6214002</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>最小二乗法(1次関数) - About</title>
+  <link rel="stylesheet" type="text/css" href="/style/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/style/main.css">
+  <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="main">
+      <div class="header">
+        <div class="page-header">
+          <h1>最小二乗法(1次関数)自動評価</h1>
+        </div>
+        <nav class="navbar navbar-inverse" role="navigation">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/">LeastSquaresMethod</a>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a href="/">App</a></li>
+              <li class="active"><a href="#">About</a></li>
+              <li><a href="/help">Help</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="equation section">
+        <h2>評価方法</h2>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img src="http://chart.apis.google.com/chart?cht=tx&chl=\bigtriangleup=n\sum{x_i^2}-(\sum{x_i})^2" />
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img src="http://chart.apis.google.com/chart?cht=tx&chl=a=\frac{\sum{y_i}\sum{x_i^2}-\sum{x_i}\sum{x_i}\sum{y_i}}{\bigtriangleup}" />
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img src="http://chart.apis.google.com/chart?cht=tx&chl=b=\frac{n\sum{x_iy_i}-\sum{x_i}\sum{y_i}}{\bigtriangleup}" />
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img src="http://chart.apis.google.com/chart?cht=tx&chl=\sigma_y=\sqrt{{\frac{1}{n-2}}\sum(y_i-a-bx_i)^2}" />
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img src="http://chart.apis.google.com/chart?cht=tx&chl=\sigma_a={\sigma_y}\sqrt{{\frac{1}{\bigtriangleup}}{\sum}x_i^2}" />
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img src="http://chart.apis.google.com/chart?cht=tx&chl=\sigma_b=\sigma_y{\sqrt{\frac{n}{\bigtriangleup}}}" />
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img src="http://chart.apis.google.com/chart?cht=tx&chl=y=(a\pm\sigma_a)%2B(b\pm\sigma_b)x" />
+          </div>
+        </div>
+      </div>
+      <div class="about section">
+        <h2>このアプリケーションについて</h2>
+        <dl class="list-inline">
+          <dt>初期リリース日時</dt><dd>2014-5-30</dd>
+          <dt>開発者</dt><dd>学籍番号6214002</dd>
+        </dl>
+      </div>
+      <div class="footer">
+        <p class="text-center">©2014 学籍番号6214002</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

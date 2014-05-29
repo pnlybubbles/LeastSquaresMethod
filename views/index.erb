@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/style/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/style/main.css">
   <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/js/index.js"></script>
 </head>
 <body>
@@ -15,13 +16,30 @@
         <div class="page-header">
           <h1>最小二乗法(1次関数)自動評価</h1>
         </div>
+        <nav class="navbar navbar-inverse" role="navigation">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">LeastSquaresMethod</a>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">App</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/help">Help</a></li>
+            </ul>
+          </div>
+        </div>
         <div class="alert alert-danger"><strong>警告</strong> このツールはまだ完全なものではありません。重みはすべて"1"となっています。</div>
-        <% if @fewer_inputs %><div class="alert alert-warning alert-dismissable"><strong>エラー</strong> サンプル数が少なすぎます。3個以上入力してください。</div><% end %>
+        <% if @fewer_inputs %>
+        <div class="alert alert-warning alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong>エラー</strong> サンプル数が少なすぎます。3個以上入力してください。
+        </div>
+        <% end %>
       </div>
       <div class="input section">
         <h2>入力</h2>
-        <label>Excelのデータを入力</label>
-        <textarea class="form-control input_area"><%= @input_area %></textarea>
+        <label>Excelのcsvファイルを入力、またはドラッグ&ドロップ</label>
+        <textarea class="form-control input_area" ondragover="drop_receive_prepare(event)" ondrop="get_drop_file(event)"><%= @input_area %></textarea>
         <button type="button" class="btn btn-primary evaluate_btn" onclick="evaluate_input()">評価</button>
       </div>
       <div class="result section">
@@ -53,7 +71,7 @@
           </tbody>
           <tbody class="table-tail">
             <tr>
-              <td><img src="http://chart.apis.google.com/chart?cht=tx&chl=\sum_{i=1}^<%= @n %>" /></td>
+              <td><img src="http://chart.apis.google.com/chart?cht=tx&chl=\sum_{i=1}^{<%= @n %>}" /></td>
               <td><%= @x_sum %></td>
               <td><%= @y_sum %></td>
               <td><%= @x_sq_sum %></td>

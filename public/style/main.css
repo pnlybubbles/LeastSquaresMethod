@@ -11,11 +11,11 @@
 }
 
 .section {
-  margin: 50px 0;
+  margin: 0 0 50px 0;
 }
 
 .input_area {
-  height: 300px;
+  height: 100px !important;
   resize: none;
   margin-bottom: 10px;
 }
@@ -32,4 +32,16 @@
 .footer p {
   color: rgba(180, 180, 180, 1);
   font-size: 90%;
+}
+
+.list-inline {
+  margin: 0;
+}
+
+.img-thumbnail {
+  float: none;
+}
+
+.img_wrap {
+  margin: 5px 0 50px 0;
 }

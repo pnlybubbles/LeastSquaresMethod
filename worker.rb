@@ -1,10 +1,15 @@
 # encoding: utf-8
 
 require "sinatra"
+require "base64"
 
 class Sample < Sinatra::Base
   get "/" do
-    @data = params[:data]
+    if params[:type] == "base64"
+      @data = Base64.decode64(params[:data]).split("\n").join(":")
+    elsif params[:type] == "plain"
+      @data = params[:data]
+    end
     @debug_area = params.to_s
     @fewer_inputs = false
     if @data && @data.empty?.!
@@ -29,5 +34,13 @@ class Sample < Sinatra::Base
       end
     end
     erb :index
+  end
+
+  get "/about" do
+    erb :about
+  end
+
+  get "/help" do
+    erb :help
   end
 end
