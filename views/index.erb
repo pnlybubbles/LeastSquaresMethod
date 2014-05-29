@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>最小二乗法(1次関数)</title>
+  <link rel="stylesheet" type="text/css" href="/style/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/style/main.css">
+  <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="/js/index.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="main">
+      <div class="header">
+        <div class="page-header">
+          <h1>最小二乗法(1次関数)自動評価</h1>
+        </div>
+        <div class="alert alert-danger"><strong>警告</strong> このツールはまだ完全なものではありません。重みはすべて"1"となっています。</div>
+        <% if @fewer_inputs %><div class="alert alert-warning alert-dismissable"><strong>エラー</strong> サンプル数が少なすぎます。3個以上入力してください。</div><% end %>
+      </div>
+      <div class="input section">
+        <h2>入力</h2>
+        <label>Excelのデータを入力</label>
+        <textarea class="form-control input_area"><%= @input_area %></textarea>
+        <button type="button" class="btn btn-primary evaluate_btn" onclick="evaluate_input()">評価</button>
+      </div>
+      <div class="result section">
+        <h2>結果</h2>
+        <% if @data && @data.empty?.! && @fewer_inputs.! %>
+        <label>総和の表計算</label>
+        <table class="table table-bordered result_table">
+          <thead>
+            <tr>
+              <th><img src="http://chart.apis.google.com/chart?cht=tx&chl=i" /></th>
+              <th><img src="http://chart.apis.google.com/chart?cht=tx&chl=x_i" /></th>
+              <th><img src="http://chart.apis.google.com/chart?cht=tx&chl=y_i" /></th>
+              <th><img src="http://chart.apis.google.com/chart?cht=tx&chl={x_i}^2" /></th>
+              <th><img src="http://chart.apis.google.com/chart?cht=tx&chl={x_i}{y_i}" /></th>
+              <th><img src="http://chart.apis.google.com/chart?cht=tx&chl=({y_i}-a-b{x_i})^2" /></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @n.times do |i| %>
+            <tr>
+              <td><%= i + 1 %></td>
+              <td><%= @x[i] %></td>
+              <td><%= @y[i] %></td>
+              <td><%= @x[i] ** 2 %></td>
+              <td><%= @x[i] * @y[i] %></td>
+              <td><%= (@y[i] - @a - @b * @x[i]) ** 2 %></td>
+            </tr>
+            <% end %>
+          </tbody>
+          <tbody class="table-tail">
+            <tr>
+              <td><img src="http://chart.apis.google.com/chart?cht=tx&chl=\sum_{i=1}^<%= @n %>" /></td>
+              <td><%= @x_sum %></td>
+              <td><%= @y_sum %></td>
+              <td><%= @x_sq_sum %></td>
+              <td><%= @x_sum_y_sum %></td>
+              <td><%= @y_a_bx_sum %></td>
+            </tr>
+          </tbody>
+        </table>
+        <label>傾き、切片、Det</label>
+        <table class="table table-bordered a_b_table">
+          <thead>
+            <tr>
+              <th><img src="http://chart.apis.google.com/chart?cht=tx&chl=a" /></th>
+              <th><img src="http://chart.apis.google.com/chart?cht=tx&chl=b" /></th>
+              <th><img src="http://chart.apis.google.com/chart?cht=tx&chl=\bigtriangleup" /></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @a %></td>
+              <td><%= @b %></td>
+              <td><%= @det %></td>
+            </tr>
+          </tbody>
+        </table>
+        <label>傾きと切片の不確かさ</label>
+        <table class="table table-bordered a_b_uncertainty_table">
+          <thead>
+            <tr>
+              <th><img src="http://chart.apis.google.com/chart?cht=tx&chl=\sigma_y" /></th>
+              <th><img src="http://chart.apis.google.com/chart?cht=tx&chl=\sigma_a" /></th>
+              <th><img src="http://chart.apis.google.com/chart?cht=tx&chl=\sigma_b" /></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @sig_y %></td>
+              <td><%= @sig_a %></td>
+              <td><%= @sig_b %></td>
+            </tr>
+          </tbody>
+        </table>
+        <label>得られた関数</label>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img src="http://chart.apis.google.com/chart?cht=tx&chl=y=(<%= @a %>\pm<%= @sig_a %>)%2B(<%= @b %>\pm<%= @sig_b %>)x" />
+          </div>
+        </div>
+        <% end %>
+        <label>Debug Field</label>
+        <textarea class="form-control debug_area" disabled><%= @debug_area %></textarea>
+      </div>
+      <div class="footer">
+        <p class="text-center">©2014 学籍番号6214002</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
