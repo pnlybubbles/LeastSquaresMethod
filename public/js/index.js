@@ -1,4 +1,4 @@
-var CSV_EXP = /text\/html|text\/plain|text\/x-comma-separated-values|text\/comma-separated-values|application\/octet-stream|application\/vnd\.ms\-excel|application\/x\-csv|text\/x\-csv|text\/csv|application\/csv|application\/excel|application\/vnd\.msexcel/;
+var CSV_EXP = /text\/html|text\/plain|text\/x-comma-separated-values|text\/comma-separated-values|application\/octet-stream|application\/vnd\.ms\-excel|application\/x\-csv|text\/x\-csv|text\/csv|application\/csv|application\/excel|application\/vnd\.ms\-excel/;
 
 function evaluate_input () {
   document.location = "/?scale=" + $(".scale_area").val() + "&type=plain&data=" + $(".input_area").val().split("\n").join(":");

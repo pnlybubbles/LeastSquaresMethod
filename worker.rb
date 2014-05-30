@@ -5,7 +5,7 @@ require "base64"
 require "json"
 require 'bigdecimal'
 
-class Sample < Sinatra::Base
+class Worker < Sinatra::Base
   get "/" do
     @error = []
     @debug = []
