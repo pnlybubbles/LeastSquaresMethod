@@ -56,3 +56,8 @@
 .graph_area {
   height: 600px;
 }
+
+.btn a {
+  text-decoration: none;
+  color: #fff;
+}

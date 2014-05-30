@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/style/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/style/main.css">
   <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.smoothScroll.js"></script>
   <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -44,10 +45,26 @@
 10,22.5</pre>
         <label>実行結果</label>
         <br>
-        <button type="button" class="btn btn-primary" onclick="document.location='/?type=plain&data=1,4.5:2,6.8:3,8.2:4,10.2:5,12.7:6,14.5:7,16.8:8,19.1:9,20.3:10,22.5'">実行結果にジャンプ</button>
+        <a class="btn btn-primary" href="/?type=plain&data=1,4.5:2,6.8:3,8.2:4,10.2:5,12.7:6,14.5:7,16.8:8,19.1:9,20.3:10,22.5">実行結果にジャンプ</a>
       </div>
       <div class="tips section">
         <h2>操作手順</h2>
+        <a class="btn btn-primary" href="#windows">Windowsの方</a>
+        <a class="btn btn-primary" href="#mac">Macの方</a>
+        <h2 id="windows">Windows</h2>
+        <label>エクセルを開き最小二乗法に適用したいデータのみを取り出します。(A列がx軸、B列がy軸)</label>
+        <div class="img_wrap">
+          <img src="/image/img_1w.png" class="img-thumbnail" \>
+        </div>
+        <label>csvデータ形式で保存します。</label>
+        <div class="img_wrap">
+          <img src="/image/img_2w.png" class="img-thumbnail" \>
+        </div>
+        <label>保存したcsvファイルをドラッグ&ドロップします。</label>
+        <div class="img_wrap">
+          <img src="/image/img_3w.png" class="img-thumbnail" \>
+        </div>
+        <h2 id="mac">Mac</h2>
         <label>エクセルを開き最小二乗法に適用したいデータのみを取り出します。(A列がx軸、B列がy軸)</label>
         <div class="img_wrap">
           <img src="/image/img_1.png" class="img-thumbnail" \>
