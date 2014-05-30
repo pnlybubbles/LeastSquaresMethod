@@ -42,3 +42,4 @@ function render_graph (plot_data_json, a_s, b_s, last_x) {
     }
   ]);
 }
+
