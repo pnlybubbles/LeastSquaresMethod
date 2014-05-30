@@ -12,7 +12,7 @@
   <script type="text/javascript">
   </script>
 </head>
-<body <% if @data && @data.empty?.! && @fewer_inputs.! %>onload="render_graph('<%= @plot_data %>', '<%= @a.to_s(%(f)) %>', '<%= @b.to_s(%(f)) %>', '<%= @x.last.to_s(%(f)) %>')"<% end %>>
+<body <% if @error.empty? %>onload="render_graph('<%= @plot_data %>', '<%= @a.to_s(%(f)) %>', '<%= @b.to_s(%(f)) %>', '<%= @x.last.to_s(%(f)) %>')"<% end %>>
   <div class="container">
     <div class="main">
       <div class="header">
@@ -32,10 +32,40 @@
           </div>
         </div>
         <div class="alert alert-danger"><strong>警告</strong> このツールはまだ完全なものではありません。重みはすべて"1"となっています。</div>
-        <% if @fewer_inputs %>
+        <% if @error.include?(:no_data) %>
+        <div class="alert alert-warning alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong>エラー</strong> データが入力されていない、またはcsvファイルの内容がありません。
+        </div>
+        <% end %>
+        <% if @error.include?(:fewer_inputs) %>
         <div class="alert alert-warning alert-dismissable">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
           <strong>エラー</strong> サンプル数が少なすぎます。3個以上入力してください。
+        </div>
+        <% end %>
+        <% if @error.include?(:scale_nan) %>
+        <div class="alert alert-warning alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong>エラー</strong> 表示桁数が不正な入力値です。半角数字のみ使用できます。
+        </div>
+        <% end %>
+        <% if @error.include?(:data_nan) %>
+        <div class="alert alert-warning alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong>エラー</strong> Excelデータが不正な入力値です。半角数字とカンマ(",")のみ使用できます。
+        </div>
+        <% end %>
+        <% if @error.include?(:decode64_error) %>
+        <div class="alert alert-warning alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong>エラー</strong> csvデータが認識できません。出力ファイルの形式を確認してください。
+        </div>
+        <% end %>
+        <% if @error.include?(:parse_error) %>
+        <div class="alert alert-warning alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong>エラー</strong> Excelデータが解析に失敗しました。入力方法を確認してください。<a href="/help">ヘルプ</a>
         </div>
         <% end %>
       </div>
@@ -45,13 +75,13 @@
         <textarea class="form-control input_area textarea" ondragover="drop_receive_prepare(event)" ondrop="get_drop_file(event)"><%= @input_area %></textarea>
         <span class="help-block">Excelのデータを"x,y"とコンマで区切って入力するか、csvファイルをドラッグ&ドロップしてください。<a href="/help">ヘルプ</a></span>
         <label>表示桁数</label>
-        <input type="text" class="form-control scale_area textarea" value="10" onKeyPress="return submitStop(event);"></input>
+        <input type="text" class="form-control scale_area textarea" value="<%= @scale %>" onKeyPress="return submitStop(event);"></input>
         <span class="help-block">表示する小数点以下の最大桁数を指定します。</span>
         <button type="button" class="btn btn-primary evaluate_btn" onclick="evaluate_input()">評価</button>
       </div>
       <div class="result section">
         <h2>結果</h2>
-        <% if @data && @data.empty?.! && @fewer_inputs.! %>
+        <% if @error.empty? %>
         <label>総和の表計算</label>
         <table class="table table-bordered result_table">
           <thead>
@@ -138,7 +168,7 @@
         <textarea class="form-control debug_area" disabled><%= @debug_area %></textarea>
       </div>
       <div class="footer">
-        <p class="text-center">©2014 学籍番号6214002</p>
+        <p class="text-center">©2014 pnlybubbles</p>
       </div>
     </div>
   </div>

@@ -1,3 +1,5 @@
+var CSV_EXP = /text\/html|text\/plain|text\/x-comma-separated-values|text\/comma-separated-values|application\/octet-stream|application\/vnd\.ms\-excel|application\/x\-csv|text\/x\-csv|text\/csv|application\/csv|application\/excel|application\/vnd\.msexcel/;
+
 function evaluate_input () {
   document.location = "/?scale=" + $(".scale_area").val() + "&type=plain&data=" + $(".input_area").val().split("\n").join(":");
 }
@@ -14,8 +16,8 @@ function get_drop_file (e) {
   reader.onloadend = function(){
     console.log(reader);
     console.log(reader.result.replace(/data:text\/csv;base64\,/, ""));
-    if(/data:text\/csv;base64\,/.test(reader.result)) {
-      document.location = "/?type=base64&data=" + reader.result.replace(/data:text\/csv;base64\,/, "");
+    if(CSV_EXP.test(reader.result)) {
+      document.location = "/?scale=" + $(".scale_area").val() + "&type=base64&data=" + reader.result.replace(/^data:.+base64\,/, "");
     } else {
       alert("csv以外のファイルには対応していません");
     }
