@@ -1,5 +1,5 @@
 function evaluate_input () {
-  document.location = "/?type=plain&data=" + $(".input_area").val().split("\n").join(":");
+  document.location = "/?scale=" + $(".scale_area").val() + "&type=plain&data=" + $(".input_area").val().split("\n").join(":");
 }
 
 function drop_receive_prepare (e) {
@@ -42,4 +42,3 @@ function render_graph (plot_data_json, a_s, b_s, last_x) {
     }
   ]);
 }
-

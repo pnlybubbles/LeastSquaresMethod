@@ -12,7 +12,7 @@
   <script type="text/javascript">
   </script>
 </head>
-<body <% if @data && @data.empty?.! && @fewer_inputs.! %>onload="render_graph('<%= @plot_data %>', '<%= @a %>', '<%= @b %>', '<%= @x.last %>')"<% end %>>
+<body <% if @data && @data.empty?.! && @fewer_inputs.! %>onload="render_graph('<%= @plot_data %>', '<%= @a.to_s(%(f)) %>', '<%= @b.to_s(%(f)) %>', '<%= @x.last.to_s(%(f)) %>')"<% end %>>
   <div class="container">
     <div class="main">
       <div class="header">
@@ -41,8 +41,12 @@
       </div>
       <div class="input section">
         <h2>入力</h2>
-        <label>Excelのcsvファイルを入力、またはドラッグ&ドロップ</label>
-        <textarea class="form-control input_area" ondragover="drop_receive_prepare(event)" ondrop="get_drop_file(event)"><%= @input_area %></textarea>
+        <label>Excelデータの入力</label>
+        <textarea class="form-control input_area textarea" ondragover="drop_receive_prepare(event)" ondrop="get_drop_file(event)"><%= @input_area %></textarea>
+        <span class="help-block">Excelのデータを"x,y"とコンマで区切って入力するか、csvファイルをドラッグ&ドロップしてください。<a href="/help">ヘルプ</a></span>
+        <label>表示桁数</label>
+        <input type="text" class="form-control scale_area textarea" value="10" onKeyPress="return submitStop(event);"></input>
+        <span class="help-block">表示する小数点以下の最大桁数を指定します。</span>
         <button type="button" class="btn btn-primary evaluate_btn" onclick="evaluate_input()">評価</button>
       </div>
       <div class="result section">
@@ -64,22 +68,22 @@
             <% @n.times do |i| %>
             <tr>
               <td><%= i + 1 %></td>
-              <td><%= @x[i] %></td>
-              <td><%= @y[i] %></td>
-              <td><%= @x[i] ** 2 %></td>
-              <td><%= @x[i] * @y[i] %></td>
-              <td><%= (@y[i] - @a - @b * @x[i]) ** 2 %></td>
+              <td><%= (@x[i]).to_s("f") %></td>
+              <td><%= (@y[i]).to_s("f") %></td>
+              <td><%= (@x[i] ** 2).round(@scale).to_s("f") %></td>
+              <td><%= (@x[i] * @y[i]).round(@scale).to_s("f") %></td>
+              <td><%= ((@y[i] - @a - @b * @x[i]) ** 2).round(@scale).to_s("f") %></td>
             </tr>
             <% end %>
           </tbody>
           <tbody class="table-tail">
             <tr>
               <td><img src="http://chart.apis.google.com/chart?cht=tx&chl=\sum_{i=1}^{<%= @n %>}" /></td>
-              <td><%= @x_sum %></td>
-              <td><%= @y_sum %></td>
-              <td><%= @x_sq_sum %></td>
-              <td><%= @x_sum_y_sum %></td>
-              <td><%= @y_a_bx_sum %></td>
+              <td><%= (@x_sum).round(@scale).to_s("f") %></td>
+              <td><%= (@y_sum).round(@scale).to_s("f") %></td>
+              <td><%= (@x_sq_sum).round(@scale).to_s("f") %></td>
+              <td><%= (@x_sum_y_sum).round(@scale).to_s("f") %></td>
+              <td><%= (@y_a_bx_sum).round(@scale).to_s("f") %></td>
             </tr>
           </tbody>
         </table>
@@ -94,9 +98,9 @@
           </thead>
           <tbody>
             <tr>
-              <td><%= @a %></td>
-              <td><%= @b %></td>
-              <td><%= @det %></td>
+              <td><%= @a.round(@scale).to_s("f") %></td>
+              <td><%= @b.round(@scale).to_s("f") %></td>
+              <td><%= @det.round(@scale).to_s("f") %></td>
             </tr>
           </tbody>
         </table>
@@ -111,16 +115,16 @@
           </thead>
           <tbody>
             <tr>
-              <td><%= @sig_y %></td>
-              <td><%= @sig_a %></td>
-              <td><%= @sig_b %></td>
+              <td><%= @sig_y.round(@scale).to_s("f") %></td>
+              <td><%= @sig_a.round(@scale).to_s("f") %></td>
+              <td><%= @sig_b.round(@scale).to_s("f") %></td>
             </tr>
           </tbody>
         </table>
         <label>得られた関数</label>
         <div class="panel panel-default">
           <div class="panel-body">
-            <img src="http://chart.apis.google.com/chart?cht=tx&chl=y=(<%= @a %>\pm<%= @sig_a %>)%2B(<%= @b %>\pm<%= @sig_b %>)x" />
+            <img src="http://chart.apis.google.com/chart?cht=tx&chl=y=(<%= @a.round(@scale).to_s("f") %>\pm<%= @sig_a.round(@scale).to_s("f") %>)%2B(<%= @b.round(@scale).to_s("f") %>\pm<%= @sig_b.round(@scale).to_s("f") %>)x" />
           </div>
         </div>
         <label>グラフ</label>

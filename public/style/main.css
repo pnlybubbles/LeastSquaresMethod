@@ -16,8 +16,19 @@
 
 .input_area {
   height: 100px !important;
+}
+
+.scale_area {
+  width: 100px;
+}
+
+.textarea {
   resize: none;
-  margin-bottom: 10px;
+  display: block;
+}
+
+.evaluate_btn {
+  margin-top: 10px;
 }
 
 .table {
