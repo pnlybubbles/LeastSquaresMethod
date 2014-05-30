@@ -2,6 +2,7 @@
 
 require "sinatra"
 require "base64"
+require "json"
 
 class Sample < Sinatra::Base
   get "/" do
@@ -31,6 +32,7 @@ class Sample < Sinatra::Base
         @sig_y = Math.sqrt(Rational(1, (@n - 2)).to_f * @y_a_bx_sum)
         @sig_a = @sig_y * Math.sqrt((1 / @det) * @x_sq_sum)
         @sig_b = @sig_y * Math.sqrt(@n / @det)
+        @plot_data = JSON.generate(@x.zip(@y))
       end
     end
     erb :index

@@ -6,10 +6,13 @@
   <link rel="stylesheet" type="text/css" href="/style/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/style/main.css">
   <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.flot.min.js"></script>
   <script type="text/javascript" src="/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/js/index.js"></script>
+  <script type="text/javascript">
+  </script>
 </head>
-<body>
+<body <% if @data && @data.empty?.! && @fewer_inputs.! %>onload="render_graph('<%= @plot_data %>', '<%= @a %>', '<%= @b %>', '<%= @x.last %>')"<% end %>>
   <div class="container">
     <div class="main">
       <div class="header">
@@ -118,6 +121,12 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <img src="http://chart.apis.google.com/chart?cht=tx&chl=y=(<%= @a %>\pm<%= @sig_a %>)%2B(<%= @b %>\pm<%= @sig_b %>)x" />
+          </div>
+        </div>
+        <label>グラフ</label>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="graph_area"></div>
           </div>
         </div>
         <% end %>

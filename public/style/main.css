@@ -38,11 +38,10 @@
   margin: 0;
 }
 
-.img-thumbnail {
-  float: none;
-}
-
 .img_wrap {
   margin: 5px 0 50px 0;
 }
 
+.graph_area {
+  height: 600px;
+}
