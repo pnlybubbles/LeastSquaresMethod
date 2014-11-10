@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <title>最小二乗法(1次関数)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta name="description" content="linear-least-squares-method">
+  <meta name="author" content="pnlybubbles">
   <link rel="stylesheet" type="text/css" href="/style/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/style/main.css">
   <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
@@ -13,24 +16,32 @@
   </script>
 </head>
 <body <% if @error.empty? %>onload="render_graph('<%= @plot_data %>', '<%= @a.to_s(%(f)) %>', '<%= @b.to_s(%(f)) %>', '<%= @x.last.to_s(%(f)) %>')"<% end %>>
+  <div class="header container media-fit">
+    <div class="page-header">
+      <h1>最小二乗法(1次関数)自動評価</h1>
+    </div>
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">LeastSquaresMethod</a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">App</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/help">Help</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
   <div class="container">
     <div class="main">
-      <div class="header">
-        <div class="page-header">
-          <h1>最小二乗法(1次関数)自動評価</h1>
-        </div>
-        <nav class="navbar navbar-inverse" role="navigation">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">LeastSquaresMethod</a>
-          </div>
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#">App</a></li>
-              <li><a href="/about">About</a></li>
-              <li><a href="/help">Help</a></li>
-            </ul>
-          </div>
-        </div>
+      <div class="alerts">
         <div class="alert alert-danger"><strong>警告</strong> このツールはまだ完全なものではありません。重みはすべて"1"となっています。</div>
         <% if @error.include?(:no_data) && params[:data] %>
         <div class="alert alert-warning alert-dismissable">
@@ -72,7 +83,7 @@
       <div class="input section">
         <h2>入力</h2>
         <label>Excelデータの入力</label>
-        <textarea class="form-control input_area textarea" ondragover="drop_receive_prepare(event)" ondrop="get_drop_file(event)"><%= @input_area %></textarea>
+        <textarea class="form-control input_area textarea" type="number" ondragover="drop_receive_prepare(event)" ondrop="get_drop_file(event)"><%= @input_area %></textarea>
         <span class="help-block">Excelのデータを"x,y"とコンマで区切って入力するか、csvファイルをドラッグ&ドロップしてください。<a href="/help">ヘルプ</a></span>
         <label>表示桁数</label>
         <input type="text" class="form-control scale_area textarea" value="<%= @scale %>" onKeyPress="return submitStop(event);"></input>
@@ -121,8 +132,8 @@
         <table class="table table-bordered a_b_table">
           <thead>
             <tr>
-              <th><img src="//chart.apis.google.com/chart?cht=tx&chl=a" /></th>
-              <th><img src="//chart.apis.google.com/chart?cht=tx&chl=b" /></th>
+              <th><img src="//chart.apis.google.com/chart?cht=tx&chl=a" /> (切片)</th>
+              <th><img src="//chart.apis.google.com/chart?cht=tx&chl=b" /> (傾き)</th>
               <th><img src="//chart.apis.google.com/chart?cht=tx&chl=\bigtriangleup" /></th>
             </tr>
           </thead>
@@ -138,16 +149,16 @@
         <table class="table table-bordered a_b_uncertainty_table">
           <thead>
             <tr>
+              <th><img src="//chart.apis.google.com/chart?cht=tx&chl=\sigma_a" /> (切片)</th>
+              <th><img src="//chart.apis.google.com/chart?cht=tx&chl=\sigma_b" /> (傾き)</th>
               <th><img src="//chart.apis.google.com/chart?cht=tx&chl=\sigma_y" /></th>
-              <th><img src="//chart.apis.google.com/chart?cht=tx&chl=\sigma_a" /></th>
-              <th><img src="//chart.apis.google.com/chart?cht=tx&chl=\sigma_b" /></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><%= @sig_y.round(@scale).to_s("f") %></td>
               <td><%= @sig_a.round(@scale).to_s("f") %></td>
               <td><%= @sig_b.round(@scale).to_s("f") %></td>
+              <td><%= @sig_y.round(@scale).to_s("f") %></td>
             </tr>
           </tbody>
         </table>
